@@ -1,0 +1,25 @@
+!!!
+%html
+  %head
+    %meta{:charset=>'uth-8'}
+    %title RegistMember
+  %body
+    %table{:border=>1}
+      %thead
+        %tr
+          %th NAME
+          %th GRADE
+          %th TEAM
+      %tbody
+        %tr          
+        %form{:method=>"post", :action=>"mem_new2"}
+          %tr
+            %td
+              %input{:type=>"text", :name=>"name"}
+            %td
+              %input{:type=>"text", :name=>"grade"}
+            %td
+              %input{:type=>"text", :name=>"team"}
+            %td
+              %input{:type=>"submit", :value=>"登録"}
+

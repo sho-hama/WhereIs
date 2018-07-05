@@ -1,0 +1,37 @@
+!!!
+%html
+  %head
+    %meta{:charset=>'uth-8'}
+    %title Test
+  %body
+    %table{:border=>1}
+      %thead
+        %tr
+          %th ID
+          %th NAME
+          %th GRADE        
+          %th TEAM
+      %tbody
+        %tr          
+          %td= @member.id
+          %form{:method=>"post", :action=>"/mem_modify2"}
+            %input{:type=>"hidden", :name=>"id", :value=>@member.id}
+            %td
+              %input{:type=>"text", :name=>"new_name", :value=>@member.name}
+            %td
+              %input{:type=>"text", :name=>"new_grade", :value=>@member.grade}
+            %td
+              %input{:type=>"text", :name=>"new_team", :value=>@member.team}
+            %td
+              %input{:type=>"submit", :value=>"編集"}
+
+
+
+
+
+
+
+
+
+
+

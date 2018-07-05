@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %meta{:charset=>'uth-8'}
+    %title Test
+  %body
+    %table{:border=>1}
+      %thead
+        %tr
+          %th NAME
+          %th PLACE
+          %th TIME
+      %tbody
+        - @member.locations.each do |l|
+          %tr
+            %td= @member.name 
+            %td= l.place
+            %td= l.time
+    %form{:method=>"get", :action=>"/"}
+      %input{:type=>"submit", :value=>"戻る"}
+
+
+

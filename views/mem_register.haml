@@ -1,0 +1,49 @@
+!!!
+%html
+  %head
+    %meta{:charset=>'uth-8'}
+    %title Register
+  %body
+    %table{:border=>1}
+      %thead
+        %tr
+          %th ID
+          %th NAME
+          %th GRADE
+          %th TEAM
+      %tbody
+        - @members.each do |mem|
+          %tr
+            %td= mem.id
+            %td= mem.name
+            %td= mem.grade
+            %td= mem.team
+            %form{:method=>"post", :action=>"mem_del"}
+              %td
+                %input{:type=>"submit", :value=>"削除"}
+              %input{:type=>"hidden", :name=>"id", :value=>mem.id}
+              %input{:type=>"hidden", :name=>"_method", :value=>"delete"}
+            %form{:method=>"get", :action=>"mem_modify1"}
+              %td
+                %input{:type=>"submit", :value=>"編集"}
+              %input{:type=>"hidden", :name=>"id", :value=>mem.id}
+              %input{:type=>"hidden", :name=>"name", :value=>mem.name}
+        %form{:method=>"get", :action=>"mem_new1"}
+          %td
+          %td
+          %td
+          %td
+          %td
+            %input{:type=>"submit", :value=>"追加"}
+    %form{:method=>"get", :action=>"/"}
+      %input{:type=>"submit", :value=>"戻る"}
+
+
+
+
+
+
+
+
+
+

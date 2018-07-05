@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{:charset=>'uth-8'}
+    %title RegistMember
+  %body
+    %table{:border=>1}
+      %thead
+        %tr
+          %th NAME
+          %th LOCATION
+      %tbody
+        %tr
+          %td= @member.name
+          %form{:method=>"post", :action=>"/location_new2"}
+            %input{:type=>"hidden", :name=>"id", :value=>@member.id}
+            %td
+              %input{:type=>"text", :name=>"new_place"}
+            %td
+              %input{:type=>"submit", :value=>"位置情報変更"}
+
+
