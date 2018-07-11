@@ -4,6 +4,9 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'haml'
 
+
+
+
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection(:development) #シンボルにしないと動かないらしい.ruby5.0.0以降
 
@@ -80,7 +83,20 @@ post '/location_new2' do
   redirect '/'
 end
 
-get '/location_history1' do
+get '/location_history' do
   @member = Member.find(params[:id])
   haml :location_history
 end
+
+get '/location_history_after_delete' do
+  location = Location.find(params[:location_id])
+  location.destroy
+  @member = Member.find(params[:member_id])
+  haml :location_history
+end
+
+
+  
+
+
+                         

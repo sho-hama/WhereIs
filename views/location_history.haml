@@ -13,9 +13,17 @@
       %tbody
         - @member.locations.each do |l|
           %tr
-            %td= @member.name 
+            %td= @member.name
             %td= l.place
             %td= l.time
+            - if l.time != @member.locations.order(:time).first.time 
+              %form{:method=>"get", :action=>"/location_history_after_delete"}
+                %td
+                  %input{:type=>"submit", :value=>"削除"}
+                  %input{:type=>"hidden", :name=>"location_id", :value=>l.id}
+                  %input{:type=>"hidden", :name=>"member_id", :value=>l.member_id}
+                  %input{:type=>"hidden", :name=>"_method", :value=>"delete"}
+            
     %form{:method=>"get", :action=>"/"}
       %input{:type=>"submit", :value=>"戻る"}
 
