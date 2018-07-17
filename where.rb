@@ -1,11 +1,12 @@
 # coding: utf-8
+
+# coding: utf-8
 require 'active_record'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'haml'
 
-
-
+enable :sessions
 
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection(:development) #シンボルにしないと動かないらしい.ruby5.0.0以降
@@ -19,6 +20,8 @@ class Location < ActiveRecord::Base
 end
 
 get '/' do
+  
+  @place = params[:search_place]
   @members = Member.all
   @locations = Location.all
   haml :main
@@ -84,19 +87,19 @@ post '/location_new2' do
 end
 
 get '/location_history' do
-  @member = Member.find(params[:id])
+  if session[:mem_id].nil?  then
+    @member = Member.find(params[:id])                        
+  else
+    @member = Member.find(session[:mem_id])
+    session[:mem_id] = nil
+  end
   haml :location_history
+    
 end
 
-get '/location_history_after_delete' do
+delete '/location_history_del' do
   location = Location.find(params[:location_id])
   location.destroy
-  @member = Member.find(params[:member_id])
-  haml :location_history
-end
-
-
-  
-
-
-                         
+  session[:mem_id] = params[:member_id]
+  redirect '/location_history'                         
+end                         
