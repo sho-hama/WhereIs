@@ -20,35 +20,21 @@
         %th PLACE
         %th TIME
     %tbody      
-      - @members.each do |mem|
+      - for i in 0..@mem_id.length - 1
         %tr
-          - if @place == nil || @place == ""
-            %td= mem.name
-            %td= mem.locations.order(:time).last.place
-            %td= mem.locations.order(:time).last.time
-            %form{:method=>"get", :action=>"/location_new1"}
-              %td
-                %input{:type=>"submit", :value=>"位置情報変更"}
-                %input{:type=>"hidden", :name=>"id", :value=>mem.id}
-            %form{:method=>"get", :action=>"/location_history"}
-              %td
-                %input{:type=>"submit", :value=>"履歴"}
-                %input{:type=>"hidden", :name=>"id", :value=>mem.id}
-          - else
-            - if mem.locations.order(:time).last.place == @place
-              %td= mem.name
-              %td= mem.locations.order(:time).last.place
-              %td= mem.locations.order(:time).last.time
-              %form{:method=>"get", :action=>"/location_new1"}
-                %td
-                  %input{:type=>"submit", :value=>"位置情報変更"}
-                  %input{:type=>"hidden", :name=>"id", :value=>mem.id}
-              %form{:method=>"get", :action=>"/location_history"}
-                %td
-                  %input{:type=>"submit", :value=>"履歴"}
-                  %input{:type=>"hidden", :name=>"id", :value=>mem.id}
-  %form{:method=>"get", :action=>"/mem_register"}
-    %input{:type=>"submit", :value=>"メンバー編集"}
+          %td= @mem_name[i]
+          %td= @newest_place[i]
+          %td= @newest_time[i]
+          %form{:method=>"get", :action=>"/location_new1"}
+            %td
+              %input{:type=>"submit", :value=>"位置情報変更"}
+              %input{:type=>"hidden", :name=>"id", :value=>@mem_id[i]}
+          %form{:method=>"get", :action=>"/location_history"}
+            %td
+              %input{:type=>"submit", :value=>"履歴"}
+              %input{:type=>"hidden", :name=>"id", :value=>@mem_id[i]}
+%form{:method=>"get", :action=>"/mem_register"}
+  %input{:type=>"submit", :value=>"メンバー編集"}
 
 
 -# order by で順番に並べて1番上を取ってくる.

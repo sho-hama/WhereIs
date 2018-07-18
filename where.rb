@@ -13,17 +13,38 @@ ActiveRecord::Base.establish_connection(:development) #シンボルにしない�
 
 class Member < ActiveRecord::Base
   has_many :locations, :dependent => :delete_all
+  scope :newest_location, -> (id) {Member.find(id).locations.order(:time).last.place}
+  scope :newest_time, -> (id) {Member.find(id).locations.order(:time).last.time}
 end
 
 class Location < ActiveRecord::Base
   belongs_to :member
 end
 
-get '/' do
-  
+get '/' do  
   @place = params[:search_place]
-  @members = Member.all
-  @locations = Location.all
+  @mem_id = []
+  @mem_name = []
+  @newest_place = []
+  @newest_time = []
+  @member = Member.all
+  if @place == nil || @place == ""
+    @member.each do |mem|
+      @mem_id.push(mem.id)
+      @mem_name.push(mem.name)
+      @newest_place.push(Member.newest_location(mem.id))
+      @newest_time.push(Member.newest_time(mem.id))
+    end
+  else
+    @member.each do |mem|
+      if @place == Member.newest_location(mem.id)
+          @mem_id.push(mem.id)
+          @mem_name.push(mem.name)
+          @newest_place.push(Member.newest_location(mem.id))
+          @newest_time.push(Member.newest_time(mem.id))               
+      end
+    end
+  end
   haml :main
 end
 
